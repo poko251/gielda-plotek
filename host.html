@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giełda plotek – ekran prowadzącego</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="host">
+  <div class="host-top">
+    <div>
+      <div class="brand">Technologie Blockchain · Politechnika Wrocławska</div>
+      <div class="host-title">Giełda plotek: kupuj albo sprzedawaj MUALA</div>
+    </div>
+    <div style="text-align:right">
+      <div id="room-tag" class="brand"></div>
+      <div id="conn" class="status"></div>
+    </div>
+  </div>
+
+  <!-- poczekalnia -->
+  <div id="view-lobby" class="lobby hidden">
+    <div class="qr" id="qr"></div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="font-size:28px;font-weight:700">Zeskanuj kod telefonem i wpisz swój nick</div>
+      <div><div class="muted">albo wejdź na</div><div id="join-url" class="join-url"></div></div>
+      <div><div class="muted">kod pokoju</div><div id="room-code" class="room-code"></div></div>
+      <div style="font-size:22px"><b id="count">0</b> graczy w pokoju</div>
+      <div id="names" class="names"></div>
+      <div class="ctrl"><button id="btn-start" class="primary">Start gry →</button><button id="btn-new">Nowy pokój</button></div>
+      <div class="rules">
+        <div>Na start: <b>500 zł i 5 MUALA</b> po 100 zł.</div>
+        <div>Po każdym newsie: <b>kup, trzymaj albo sprzedaj</b>. Uważaj na fałszywe konta i strony.</div>
+        <div><b>Liczy się refleks:</b> rynek reaguje od pierwszej sekundy. Kto szybciej trafnie zareaguje, kupi taniej albo sprzeda drożej.</div>
+        <div>Kup = cała gotówka w MUALA, sprzedaj = wszystkie MUALA na gotówkę. Prowizja giełdy: 2%.</div>
+        <div>Wygrywa najwyższa wartość portfela. Nagroda: cukierek.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- gra -->
+  <div id="view-game" class="hidden" style="display:contents">
+    <div class="host-left">
+      <div class="brand" id="round-tag"></div>
+      <div class="news-card" id="news"></div>
+      <div id="news-box-extra" class="panel hint muted">Kto to napisał? Czy to na pewno to konto i ta domena? Są źródła? Rynek już reaguje: im szybciej trafnie zdecydujesz, tym lepsza cena.</div>
+      <div id="reveal-box" class="panel hidden" style="display:flex;flex-direction:column;gap:10px">
+        <div><span id="verdict" class="verdict"></span></div>
+        <div class="clue"><span class="muted">Na co patrzeć:</span> <span id="clue"></span></div>
+        <div id="lesson" class="lesson"></div>
+      </div>
+      <div class="ctrl"><button id="btn-next" class="primary">Odkryj teraz →</button><button id="btn-end">Zakończ grę</button></div>
+    </div>
+    <div class="host-right">
+      <div>
+        <div class="muted">Cena 1 MUALA</div>
+        <div class="price-box"><span id="price-now" class="price-now"></span><span id="price-chg" class="price-chg"></span></div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+      <div id="timer-wrap" class="panel" style="display:flex;justify-content:space-between;align-items:center">
+        <div><div class="muted">Czas na decyzję</div><div id="answered" style="font-size:20px;font-weight:700"></div></div>
+        <div id="big-timer" class="big-timer"></div>
+      </div>
+      <div id="stats-wrap" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+        <div id="best" class="best"></div>
+        <div class="stats" id="stats"></div>
+        <ul class="board" id="board"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- koniec -->
+  <div id="view-end" class="podium hidden">
+    <div style="font-size:40px;font-weight:800" id="winner"></div>
+    <div class="podium-row" id="podium"></div>
+    <ul class="board" id="rest" style="width:min(700px,90vw)"></ul>
+    <div class="ctrl"><button id="btn-new2">Nowa gra</button></div>
+  </div>
+</div>
+<script src="lib/mqtt.min.js"></script>
+<script src="lib/qrcode.js"></script>
+<script src="common.js"></script>
+<script src="news.js"></script>
+<script src="host.js"></script>
+</body>
+</html>

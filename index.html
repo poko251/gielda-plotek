@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#11151b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Giełda plotek</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="toast" id="toast">
+  <div class="bell"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5-6.71V3.5a2 2 0 0 0-4 0v.79A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg></div>
+  <div><b id="toast-title">Nowa wiadomość</b><small id="toast-sub"></small></div>
+</div>
+
+<div class="phone">
+  <div class="brand">Giełda plotek · MUALA</div>
+
+  <!-- dołączenie -->
+  <div id="v-join" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+    <h1>Dołącz do gry</h1>
+    <div class="muted">Dostajesz 500 zł i 5 MUALA. Po każdym newsie decydujesz: kup, trzymaj albo sprzedaj. Im szybciej trafnie zareagujesz, tym lepszą cenę dostaniesz.</div>
+    <input id="room" class="field hidden" placeholder="Kod pokoju" maxlength="4" autocapitalize="characters">
+    <input id="name" class="field" placeholder="Twój nick" maxlength="16" autocomplete="off">
+    <button id="btn-join" class="btn">Dołączam</button>
+  </div>
+
+  <!-- poczekalnia -->
+  <div id="v-wait" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+    <h1 id="hello"></h1>
+    <div class="panel">Jesteś w grze. Patrz na ekran: gdy pojawi się news, na telefonie wyskoczy powiadomienie.</div>
+  </div>
+
+  <!-- news -->
+  <div id="v-news" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+    <div class="muted" id="round"></div>
+    <div class="timer"><i id="bar"></i></div>
+    <div class="news-card" id="news"></div>
+    <div class="actions">
+      <button class="act buy" data-c="buy">KUP</button>
+      <button class="act hold" data-c="hold">TRZYMAJ</button>
+      <button class="act sell" data-c="sell">SPRZEDAJ</button>
+    </div>
+    <div class="act-note" id="act-note">Kup = cała gotówka w MUALA · Sprzedaj = wszystkie MUALA na gotówkę</div>
+  </div>
+
+  <!-- wynik rundy -->
+  <div id="v-reveal" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+    <div class="muted" id="round2"></div>
+    <div><span id="verdict" class="verdict"></span></div>
+    <div class="panel"><div class="muted">Twój wynik w tej rundzie</div><div id="delta" class="big-result"></div><div id="my-res" class="my-res"></div></div>
+    <div class="muted" style="text-align:center">Wyjaśnienie na ekranie prowadzącego</div>
+  </div>
+
+  <!-- koniec -->
+  <div id="v-end" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+    <h1>Koniec gry</h1>
+    <div class="panel"><div class="muted">Twoje miejsce</div><div id="place" class="big-result"></div></div>
+    <div class="panel" id="end-msg"></div>
+  </div>
+
+  <div class="wallet" id="wallet">
+    <div><span>Gotówka</span><b id="w-cash">–</b></div>
+    <div><span>MUALA</span><b id="w-tok">–</b></div>
+    <div><span>Wartość</span><b id="w-val">–</b></div>
+  </div>
+  <div class="status"><span id="price"></span> · <span id="conn">Łączenie…</span></div>
+</div>
+<script src="lib/mqtt.min.js"></script>
+<script src="common.js"></script>
+<script src="player.js"></script>
+</body>
+</html>
